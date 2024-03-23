@@ -3,11 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clickable="false"
     tools:context=".SettingsFragment">
 
-    <Switch
-        android:id="@+id/switch1"
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/notification_toggle_switch"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Switch" />
+        android:height="32dp"
+        android:text="@string/notifications_switch_label"
+        android:textSize="20sp" />
 </androidx.core.widget.NestedScrollView>
