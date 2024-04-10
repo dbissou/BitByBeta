@@ -8,8 +8,8 @@ import androidx.room.Query
 @Dao
 interface SetDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertSet(set: Set): Long
+    suspend fun addSet(set: Set): Long
 
     @Query("SELECT * FROM set_table")
-    fun getAllSets(): LiveData<List<Set>>
+    fun readAllSets(): LiveData<List<Set>>
 }
