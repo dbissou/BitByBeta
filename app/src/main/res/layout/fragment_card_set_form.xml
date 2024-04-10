@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <EditText
+            android:id="@+id/editTextCardSetTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Card Set Title" />
+
+        <TextView
+            android:id="@+id/textViewStartDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Start Date: YYYY-MM-DD" />
+
+        <androidx.appcompat.widget.AppCompatButton
+
+            android:id="@+id/buttonSelectStartDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="Select Start Date"
+            android:background="@drawable/button_background"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:radius="4dp"/>
+
+        <TextView
+            android:id="@+id/textViewEndDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="End Date: YYYY-MM-DD" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonSelectEndDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select End Date"
+            android:background="@drawable/button_background"
+            android:textColor="#ffffff"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:radius="4dp"/>
+
+        <!-- RecyclerView to display QuestionEntity cards -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewQuestions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonAddQuestion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Question"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/button_primary_green"
+            android:textColor="#ffffff"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginBottom="20dp"
+            android:radius="4dp"/>
+
+        <EditText
+            android:id="@+id/editTextQuestionGenerator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Text for Question Generation"
+            android:maxLines="5"
+            android:scrollbars="vertical" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonGenerateQuestions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Generate Questions"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/button_primary_green"
+            android:textColor="#ffffff"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:radius="4dp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonSaveCardSet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save Card Set"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/button_primary_blue"
+            android:textColor="#ffffff"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:radius="4dp"/>
+
+    </LinearLayout>
+</ScrollView>

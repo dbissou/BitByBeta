@@ -5,9 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.bitbybeta.adapter.CardSetAdapter
 import com.example.bitbybeta.databinding.FragmentLibraryBinding
+import com.example.bitbybeta.entity.CardSetEntity
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.snackbar.Snackbar
 import java.util.Date
 import kotlin.random.Random
 
@@ -22,18 +27,38 @@ class LibraryFragment : Fragment() {
     private val binding get() = _binding!!
 
     companion object {
-        val cardSetModels = listOf(
-            CardSetModel("History Heroes", 20, randomDate(), randomDate()),
-            CardSetModel("Science Safari", 15, randomDate(), randomDate()),
-            CardSetModel("Literature Legends", 25, randomDate(), randomDate()),
-            CardSetModel("Math Masters", 30, randomDate(), randomDate()),
-            CardSetModel("Art Adventures", 10, randomDate(), randomDate()),
-            CardSetModel("Geography Geniuses", 20, randomDate(), randomDate()),
-            CardSetModel("Music Mayhem", 15, randomDate(), randomDate()),
-            CardSetModel("Language Legends", 25, randomDate(), randomDate()),
-            CardSetModel("Tech Titans", 30, randomDate(), randomDate()),
-            CardSetModel("Nature Navigators", 10, randomDate(), randomDate())
-            // Add more creative names and their corresponding constructors as needed
+
+        val cardSetEntities = listOf(
+            CardSetEntity(
+                id = 1,
+                cardSetTitle = "History Heroes",
+                cardSetStartDate = Date(),
+                cardSetEndDate = Date()
+            ),
+            CardSetEntity(
+                id = 2,
+                cardSetTitle = "Science Safari",
+                cardSetStartDate = Date(),
+                cardSetEndDate = Date()
+            ),
+            CardSetEntity(
+                id = 3,
+                cardSetTitle = "Literature Legends",
+                cardSetStartDate = Date(),
+                cardSetEndDate = Date()
+            ),
+            CardSetEntity(
+                id = 4,
+                cardSetTitle = "Math Masters",
+                cardSetStartDate = Date(),
+                cardSetEndDate = Date()
+            ),
+            CardSetEntity(
+                id = 5,
+                cardSetTitle = "Art Adventures",
+                cardSetStartDate = Date(),
+                cardSetEndDate = Date()
+            )
         )
 
         // Function to generate a random date within a range
@@ -61,13 +86,29 @@ class LibraryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val recyclerView = binding.CardSetRecyclerView
-        val cardSetAdapter = CardSetAdapter(cardSetModels)
+        val cardSetAdapter = CardSetAdapter(cardSetEntities)
         recyclerView.adapter = cardSetAdapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        //binding.buttonBack.setOnClickListener {
-        //    findNavController().navigate(R.id.action_LibraryFragment_to_FirstFragment)
-        //}
+        val layoutInflater = LayoutInflater.from(requireContext()) //find the same layout inflater
+        val bottomSheetView = layoutInflater.inflate(R.layout.bottom_sheet_layout, null) // get layout
+        val bottomSheetDialog = BottomSheetDialog(requireActivity())
+        bottomSheetDialog.setContentView(bottomSheetView);
+
+        binding.cardsetfab.setOnClickListener {
+            bottomSheetDialog.show()
+        }
+
+        val option1 = bottomSheetView.findViewById<TextView>(R.id.create_cardset)
+        option1.setOnClickListener {
+            // Handle option 1 click here (e.g., dismiss dialog, perform action)
+            bottomSheetDialog.dismiss()
+            Snackbar.make(view, "Option 1 selected!", Snackbar.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.action_LibraryFragment_to_CardSetFormFragment)
+        }
+
+
+
     }
 
     override fun onDestroyView() {
