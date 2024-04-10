@@ -1,44 +1,40 @@
-package com.example.bitbybeta.viewmodel
-
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.bitbybeta.entity.QuestionEntity
-import java.util.*
 
 class CardSetViewModel : ViewModel() {
 
-    var cardSetTitle: String = ""
-    var cardSetQuestionCount: Int? = null
-        set(value) {
-            field = value
-        }
-        get() = field
+    // MutableLiveData to hold the list of questions
+    private val _questionsLiveData = MutableLiveData<List<QuestionEntity>>()
 
-    var cardSetStartDate: Date? = null
-        set(value) {
-            field = value
-        }
-        get() = field
+    // Expose LiveData to observe the list of questions
+    val questionsLiveData: LiveData<List<QuestionEntity>>
+        get() = _questionsLiveData
 
-    var cardSetEndDate: Date? = null
-        set(value) {
-            field = value
-        }
-        get() = field
+    // MutableList to hold the list of questions
+    private val cards = mutableListOf<QuestionEntity>()
 
-    var cards: MutableList<QuestionEntity> = mutableListOf()
-
+    // Function to add a question to the list
     fun addQuestion(question: QuestionEntity) {
         cards.add(question)
+        // Notify observers that the list has been updated
+        _questionsLiveData.value = cards.toList()
     }
 
+    // Function to remove a question from the list
     fun removeQuestion(question: QuestionEntity) {
         cards.remove(question)
+        // Notify observers that the list has been updated
+        _questionsLiveData.value = cards.toList()
     }
 
+    // Function to get the total count of questions
     fun getTotalQuestionCount(): Int {
         return cards.size
     }
 
+    // Function to get a question at a specific index
     fun getQuestion(index: Int): QuestionEntity? {
         return if (index >= 0 && index < cards.size) {
             cards[index]
@@ -47,7 +43,18 @@ class CardSetViewModel : ViewModel() {
         }
     }
 
+    // Function to set the list of questions
+    fun setQuestions(questions: List<QuestionEntity>) {
+        cards.clear()
+        cards.addAll(questions)
+        // Notify observers that the list has been updated
+        _questionsLiveData.value = cards.toList()
+    }
+
+    // Function to clear the list of questions
     fun clearQuestions() {
         cards.clear()
+        // Notify observers that the list has been updated
+        _questionsLiveData.value = emptyList()
     }
 }
