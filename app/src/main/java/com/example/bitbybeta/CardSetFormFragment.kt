@@ -18,7 +18,7 @@ class CardSetFormFragment : Fragment() {
     private var _binding: FragmentCardSetFormBinding? = null // Declare the binding variable
     private val binding get() = _binding!! // Non-null assertion for the binding variable
 
-    private lateinit var viewModel: CardSetViewModel
+    private lateinit var sharedViewModel: CardSetViewModel
     private lateinit var questionAdapter: QuestionAdapter
 
 
@@ -151,15 +151,15 @@ class CardSetFormFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Instantiate ViewModel and pass the list of questions
-        viewModel = ViewModelProvider(this).get(CardSetViewModel::class.java)
-        viewModel.setQuestions(questionEntities)
+        sharedViewModel = ViewModelProvider(this).get(CardSetViewModel::class.java)
+        sharedViewModel.setQuestions(questionEntities)
 
         // Initialize RecyclerView
         val recyclerView = binding.recyclerViewQuestions
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         // Observe the list of questions from the ViewModel
-        viewModel.questionsLiveData.observe(viewLifecycleOwner) { questions ->
+        sharedViewModel.questionsLiveData.observe(viewLifecycleOwner) { questions ->
             // Update RecyclerView adapter with the new list of questions
             questionAdapter = QuestionAdapter(requireContext(), questions)
             recyclerView.adapter = questionAdapter
