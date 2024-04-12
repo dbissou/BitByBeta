@@ -6,8 +6,8 @@ import  androidx.room.RoomDatabase
 
 @Database(entities = [Set::class, Card::class], version = 1, exportSchema = false) // set to false as we won't be needing to track schema version hist in our proj
 abstract class CardDB : RoomDatabase() {
-    abstract fun SetDao(): SetDao
-    abstract fun CardDao(): CardDao
+    abstract fun setDao(): SetDao
+    abstract fun cardDao(): CardDao
 
     companion object{
         // allow writes to be made visible to other threads

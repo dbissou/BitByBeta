@@ -11,5 +11,5 @@ interface SetDao {
     suspend fun addSet(set: Set): Long
 
     @Query("SELECT * FROM set_table")
-    fun readAllSets(): LiveData<List<Set>>
+    fun getAllSets(): LiveData<List<Set>>
 }

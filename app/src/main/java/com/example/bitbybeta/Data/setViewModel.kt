@@ -1,3 +1,6 @@
+// access all queries from the DOA
+// provide data to the UI and survive config changes
+
 package com.example.bitbybeta.Data
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -7,13 +10,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class setViewModel(application: Application): AndroidViewModel(application) {
-    private val readAllData: LiveData<List<Set>>
+    private val readAllSets: LiveData<List<Set>>
     private val repository: SetRepository
 
     init {
-        val SetDao = CardDB.getDatabase(application).SetDao()
-        repository = SetRepository(SetDao)
-        readAllData = repository.readAllSets
+        val setDao = CardDB.getDatabase(application).setDao()
+        repository = SetRepository(setDao)
+        readAllSets = repository.readAllSets
     }
 
     fun addSet(set: Set){
