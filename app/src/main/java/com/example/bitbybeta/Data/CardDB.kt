@@ -1,10 +1,13 @@
 package com.example.bitbybeta.Data
+import Converters
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import  androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 
 @Database(entities = [Set::class, Card::class], version = 1, exportSchema = false) // set to false as we won't be needing to track schema version hist in our proj
+@TypeConverters(Converters::class)
 abstract class CardDB : RoomDatabase() {
     abstract fun setDao(): SetDao
     abstract fun cardDao(): CardDao

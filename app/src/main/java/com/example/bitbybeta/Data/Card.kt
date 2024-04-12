@@ -2,6 +2,7 @@ package com.example.bitbybeta.Data
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import java.time.ZonedDateTime
 import java.util.Date
 
 @Entity(tableName = "card_table",
@@ -14,7 +15,7 @@ data class Card (
     val question: String,
     val answer: String,
     val totalQuestions: Int,
-    val startDate: Date,
-    val endDate: Date,
+    val startDate: ZonedDateTime,
+    val endDate: ZonedDateTime,
     val setId: Int,
 )
