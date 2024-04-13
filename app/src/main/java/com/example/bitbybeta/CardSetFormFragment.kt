@@ -14,6 +14,7 @@ import com.example.bitbybeta.adapter.QuestionAdapter
 import com.example.bitbybeta.databinding.FragmentCardSetFormBinding
 import com.example.bitbybeta.entity.QuestionEntity
 import android.util.Log
+import com.aallam.openai.api.chat.ChatCompletion
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.RetryPolicy
@@ -23,6 +24,14 @@ import com.android.volley.toolbox.Volley
 import org.json.JSONObject
 import java.io.FileInputStream
 import java.util.Properties
+import com.aallam.openai.api.chat.ChatCompletionRequest
+import com.aallam.openai.api.chat.ChatMessage
+import com.aallam.openai.api.chat.ChatRole
+import com.aallam.openai.api.http.Timeout
+import com.aallam.openai.api.model.ModelId
+import com.aallam.openai.client.OpenAI
+import kotlin.time.Duration.Companion.seconds
+import kotlinx.coroutines.*
 
 
 class CardSetFormFragment : Fragment() {
@@ -189,7 +198,7 @@ class CardSetFormFragment : Fragment() {
             // validating text
             if (binding.promptText.text.toString().isNotEmpty()) {
                 // calling get response to get the response.
-                getResponse(binding.promptText.text.toString())
+                    getResponse(binding.promptText.text.toString())
             } else {
                 Toast.makeText(context, "Please enter your query..", Toast.LENGTH_SHORT).show()
             }
@@ -209,7 +218,34 @@ class CardSetFormFragment : Fragment() {
     }
 
     //Functions for calling OpenAI API and obfuscating API key
-    private fun getResponse(query: String) {
+    private fun getResponse(query: String) = runBlocking {
+        launch {
+
+        val openai = OpenAI(
+            token = "",//getLocalProperty("openAI_key")!!,
+            //timeout = Timeout(socket = 60.seconds),
+            // additional configurations...
+        )
+
+        val chatCompletionRequest = ChatCompletionRequest(
+            model = ModelId("gpt-3.5-turbo"),
+            messages = listOf(
+                ChatMessage(
+                    role = ChatRole.System,
+                    content = "You are a helpful assistant!"
+                ),
+                ChatMessage(
+                    role = ChatRole.User,
+                    content = "Hello!"
+                )
+            )
+        )
+
+            val completion: ChatCompletion = openai.chatCompletion(chatCompletionRequest)
+            binding.aiResponseText.text = completion.id
+        }
+    }
+    /*private fun getResponse(query: String) {
         val responseTV = binding.aiResponseText
         // creating a queue for request queue.
         val queue: RequestQueue = Volley.newRequestQueue(context)
@@ -265,7 +301,7 @@ class CardSetFormFragment : Fragment() {
         })
         // on below line adding our request to queue.
         queue.add(postRequest)
-    }
+    }*/
 
     fun getLocalProperty(propertyName: String): String? {
         try {
