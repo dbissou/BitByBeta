@@ -33,9 +33,11 @@ class StudyStartFragment: Fragment() {
 
         //on press, save amount of questions for session and go to question fragment
         binding.startButton.setOnClickListener {
-            val numText = binding.questionNumber.text.toString()
-            sharedViewModel.setStudyQuestionCount(Integer.parseInt(numText))
-            findNavController().navigate(R.id.QuestionFragment)
+            val num = Integer.parseInt(binding.questionNumber.text.toString())
+            if(num > 0 && num <= sharedViewModel.getTotalQuestionCount()){
+                sharedViewModel.setStudyQuestionCount(num)
+                findNavController().navigate(R.id.QuestionFragment)
+            }
         }
     }
 

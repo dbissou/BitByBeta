@@ -168,7 +168,9 @@ class CardSetFormFragment : Fragment() {
 
         //navigate to study start on click
         binding.startStudyButton.setOnClickListener {
-            findNavController().navigate(R.id.StudyStartFragment)
+            if(sharedViewModel.getTotalQuestionCount() > 0){
+                findNavController().navigate(R.id.StudyStartFragment)
+            }
         }
     }
 
