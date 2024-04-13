@@ -21,6 +21,8 @@ import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONObject
+import java.io.FileInputStream
+import java.util.Properties
 
 
 class CardSetFormFragment : Fragment() {
@@ -154,7 +156,7 @@ class CardSetFormFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentCardSetFormBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -185,7 +187,7 @@ class CardSetFormFragment : Fragment() {
             // setting response tv on below line.
             binding.aiResponseText.text = "Please wait.."
             // validating text
-            if (binding.promptText.text.toString().length > 0) {
+            if (binding.promptText.text.toString().isNotEmpty()) {
                 // calling get response to get the response.
                 getResponse(binding.promptText.text.toString())
             } else {
@@ -206,9 +208,8 @@ class CardSetFormFragment : Fragment() {
         _binding = null
     }
 
-    //more AI
+    //Functions for calling OpenAI API and obfuscating API key
     private fun getResponse(query: String) {
-        val questionTV = binding.promptText
         val responseTV = binding.aiResponseText
         // creating a queue for request queue.
         val queue: RequestQueue = Volley.newRequestQueue(context)
@@ -236,14 +237,15 @@ class CardSetFormFragment : Fragment() {
                 // adding on error listener
                 Response.ErrorListener { error ->
                     Log.e("TAGAPI", "Error is : " + error.message + "\n" + error)
+                    responseTV.text = "error contacting API"
                 }) {
                 override fun getHeaders(): kotlin.collections.MutableMap<kotlin.String, kotlin.String> {
                     val params: MutableMap<String, String> = HashMap()
                     // adding headers on below line.
                     params["Content-Type"] = "application/json"
                     params["Authorization"] =
-                        "Bearer Enter your token here"
-                    return params;
+                        getLocalProperty("openAI_key")!!
+                    return params
                 }
             }
 
@@ -263,6 +265,18 @@ class CardSetFormFragment : Fragment() {
         })
         // on below line adding our request to queue.
         queue.add(postRequest)
+    }
+
+    fun getLocalProperty(propertyName: String): String? {
+        try {
+            val localPropsFile = FileInputStream("local.properties")
+            val properties = Properties()
+            properties.load(localPropsFile)
+            return properties.getProperty(propertyName)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return null
     }
 
 }
