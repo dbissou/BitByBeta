@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bitbybeta.adapter.QuestionAdapter
 import com.example.bitbybeta.databinding.FragmentCardSetFormBinding
@@ -151,7 +152,7 @@ class CardSetFormFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Instantiate ViewModel and pass the list of questions
-        sharedViewModel = ViewModelProvider(this).get(CardSetViewModel::class.java)
+        sharedViewModel = ViewModelProvider(requireActivity()).get(CardSetViewModel::class.java)
         sharedViewModel.setQuestions(questionEntities)
 
         // Initialize RecyclerView
@@ -163,6 +164,13 @@ class CardSetFormFragment : Fragment() {
             // Update RecyclerView adapter with the new list of questions
             questionAdapter = QuestionAdapter(requireContext(), questions)
             recyclerView.adapter = questionAdapter
+        }
+
+        //navigate to study start on click
+        binding.startStudyButton.setOnClickListener {
+            if(sharedViewModel.getTotalQuestionCount() > 0){
+                findNavController().navigate(R.id.StudyStartFragment)
+            }
         }
     }
 

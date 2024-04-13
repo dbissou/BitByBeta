@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.bitbybeta.databinding.FragmentStudyStartBinding
 
 
@@ -26,8 +28,17 @@ class StudyStartFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //set up viewmodel
+        sharedViewModel = ViewModelProvider(requireActivity()).get(CardSetViewModel::class.java)
 
-        
+        //on press, save amount of questions for session and go to question fragment
+        binding.startButton.setOnClickListener {
+            val num = Integer.parseInt(binding.questionNumber.text.toString())
+            if(num > 0 && num <= sharedViewModel.getTotalQuestionCount()){
+                sharedViewModel.setStudyQuestionCount(num)
+                findNavController().navigate(R.id.QuestionFragment)
+            }
+        }
     }
 
     override fun onDestroyView() {
