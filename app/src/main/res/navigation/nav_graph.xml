@@ -5,7 +5,6 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/LibraryFragment">
 
-
     <fragment
         android:id="@+id/LibraryFragment"
         android:name="com.example.bitbybeta.LibraryFragment"
@@ -18,9 +17,18 @@
 
     </fragment>
 
+
     <fragment
         android:id="@+id/CardSetFormFragment"
         android:name="com.example.bitbybeta.CardSetFormFragment"
         android:label="Create Card Set"
         tools:layout="@layout/fragment_card_set_form" />
+
+    <fragment
+        android:id="@+id/SettingsFragment"
+        android:name="com.example.bitbybeta.SettingsFragment"
+        android:label="@string/settings_fragment_label"
+        tools:layout="@layout/fragment_settings">
+    </fragment>
+
 </navigation>
