@@ -1,13 +1,13 @@
-package com.example.bitbybeta
+package com.example.bitbybeta.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.bitbybeta.CardSetModel
 import com.example.bitbybeta.R
+import com.example.bitbybeta.entity.CardSetEntity
 
-class CardSetAdapter(private val cardSetList: List<CardSetModel>) :
+class CardSetAdapter(private val cardSetList: List<CardSetEntity>) :
     RecyclerView.Adapter<CardSetAdapter.CardSetViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardSetViewHolder {
@@ -22,7 +22,6 @@ class CardSetAdapter(private val cardSetList: List<CardSetModel>) :
         val currentItem = cardSetList[position]
 
         holder.titleTextView.text = currentItem.getCardSetTitle()
-        holder.questionCountTextView.text = currentItem.getCardSetQuestionCount().toString()
         holder.startDateTextView.text = currentItem.getCardSetStartDate().toString()
         holder.endDateTextView.text = currentItem.getCardSetEndDate().toString()
     }
@@ -31,7 +30,6 @@ class CardSetAdapter(private val cardSetList: List<CardSetModel>) :
 
     class CardSetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val titleTextView: TextView = itemView.findViewById(R.id.text_title)
-        val questionCountTextView: TextView = itemView.findViewById(R.id.text_question_count)
         val startDateTextView: TextView = itemView.findViewById(R.id.text_start_date)
         val endDateTextView: TextView = itemView.findViewById(R.id.text_end_date)
     }
