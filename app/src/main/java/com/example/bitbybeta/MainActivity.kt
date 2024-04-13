@@ -9,8 +9,10 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import com.example.bitbybeta.databinding.ActivityMainBinding
+import com.google.android.material.textfield.TextInputEditText
 
 class MainActivity : AppCompatActivity() {
 

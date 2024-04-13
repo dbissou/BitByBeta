@@ -7,11 +7,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bitbybeta.adapter.QuestionAdapter
 import com.example.bitbybeta.databinding.FragmentCardSetFormBinding
 import com.example.bitbybeta.entity.QuestionEntity
+import android.util.Log
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.RetryPolicy
+import com.android.volley.VolleyError
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
+import org.json.JSONObject
 
 
 class CardSetFormFragment : Fragment() {
@@ -22,6 +31,8 @@ class CardSetFormFragment : Fragment() {
     private lateinit var sharedViewModel: CardSetViewModel
     private lateinit var questionAdapter: QuestionAdapter
 
+    //OpenAI stuff
+    var url = "https://api.openai.com/v1/completions"
 
     companion object {
         fun newInstance() = CardSetFormFragment()
@@ -166,6 +177,22 @@ class CardSetFormFragment : Fragment() {
             recyclerView.adapter = questionAdapter
         }
 
+        //make AI response not visible until necessary
+        binding.aiResponseText.visibility = View.GONE
+        //AI generation
+        binding.aiGenerateButton.setOnClickListener {
+            binding.aiResponseText.visibility = View.VISIBLE
+            // setting response tv on below line.
+            binding.aiResponseText.text = "Please wait.."
+            // validating text
+            if (binding.promptText.text.toString().length > 0) {
+                // calling get response to get the response.
+                getResponse(binding.promptText.text.toString())
+            } else {
+                Toast.makeText(context, "Please enter your query..", Toast.LENGTH_SHORT).show()
+            }
+        }
+
         //navigate to study start on click
         binding.startStudyButton.setOnClickListener {
             if(sharedViewModel.getTotalQuestionCount() > 0){
@@ -179,5 +206,63 @@ class CardSetFormFragment : Fragment() {
         _binding = null
     }
 
+    //more AI
+    private fun getResponse(query: String) {
+        val questionTV = binding.promptText
+        val responseTV = binding.aiResponseText
+        // creating a queue for request queue.
+        val queue: RequestQueue = Volley.newRequestQueue(context)
+        // creating a json object on below line.
+        val jsonObject: JSONObject? = JSONObject()
+        // adding params to json object.
+        jsonObject?.put("model", "text-davinci-003")
+        jsonObject?.put("prompt", query)
+        jsonObject?.put("temperature", 0)
+        jsonObject?.put("max_tokens", 100)
+        jsonObject?.put("top_p", 1)
+        jsonObject?.put("frequency_penalty", 0.0)
+        jsonObject?.put("presence_penalty", 0.0)
+
+        // on below line making json object request.
+        val postRequest: JsonObjectRequest =
+            // on below line making json object request.
+            object : JsonObjectRequest(Method.POST, url, jsonObject,
+                Response.Listener { response ->
+                    // on below line getting response message and setting it to text view.
+                    val responseMsg: String =
+                        response.getJSONArray("choices").getJSONObject(0).getString("text")
+                    responseTV.text = responseMsg
+                },
+                // adding on error listener
+                Response.ErrorListener { error ->
+                    Log.e("TAGAPI", "Error is : " + error.message + "\n" + error)
+                }) {
+                override fun getHeaders(): kotlin.collections.MutableMap<kotlin.String, kotlin.String> {
+                    val params: MutableMap<String, String> = HashMap()
+                    // adding headers on below line.
+                    params["Content-Type"] = "application/json"
+                    params["Authorization"] =
+                        "Bearer Enter your token here"
+                    return params;
+                }
+            }
+
+        // on below line adding retry policy for our request.
+        postRequest.setRetryPolicy(object : RetryPolicy {
+            override fun getCurrentTimeout(): Int {
+                return 50000
+            }
+
+            override fun getCurrentRetryCount(): Int {
+                return 50000
+            }
+
+            @Throws(VolleyError::class)
+            override fun retry(error: VolleyError) {
+            }
+        })
+        // on below line adding our request to queue.
+        queue.add(postRequest)
+    }
 
 }

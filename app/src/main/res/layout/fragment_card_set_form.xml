@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -82,7 +83,7 @@
             android:radius="4dp"/>
 
         <EditText
-            android:id="@+id/editTextQuestionGenerator"
+            android:id="@+id/prompt_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter Text for Question Generation"
@@ -90,18 +91,25 @@
             android:scrollbars="vertical" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/buttonGenerateQuestions"
+            android:id="@+id/ai_generate_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Generate Questions"
             android:layout_marginTop="16dp"
             android:background="@drawable/button_primary_green"
-            android:textColor="#ffffff"
             android:paddingStart="20dp"
-            android:paddingEnd="20dp"
             android:paddingTop="10dp"
+            android:paddingEnd="20dp"
             android:paddingBottom="10dp"
-            android:radius="4dp"/>
+            android:radius="4dp"
+            android:text="Generate Question"
+            android:textColor="#ffffff" />
+
+        <TextView
+            android:id="@+id/ai_response_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            tools:visibility="visible" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonSaveCardSet"
