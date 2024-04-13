@@ -3,14 +3,22 @@ package com.example.bitbybeta
 import CardSetViewModel
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.bitbybeta.adapter.FlashCardAdapter
 import com.example.bitbybeta.adapter.QuestionAdapter
 import com.example.bitbybeta.databinding.FragmentCardSetFormBinding
+import com.example.bitbybeta.entity.FlashCardEntity
 import com.example.bitbybeta.entity.QuestionEntity
+import com.google.android.material.datepicker.MaterialDatePicker
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 
 class CardSetFormFragment : Fragment() {
@@ -19,124 +27,65 @@ class CardSetFormFragment : Fragment() {
     private val binding get() = _binding!! // Non-null assertion for the binding variable
 
     private lateinit var viewModel: CardSetViewModel
-    private lateinit var questionAdapter: QuestionAdapter
+    private lateinit var flashCardAdapter: FlashCardAdapter
 
 
     companion object {
         fun newInstance() = CardSetFormFragment()
 
-        val questionEntities = listOf(
-            QuestionEntity(
+        val flashCardEntities = listOf(
+            FlashCardEntity(
                 cardSetId = 1,
-                questionText = "Who was the first president of the United States?",
-                answerOption1 = "George Washington",
-                answerOption2 = "Thomas Jefferson",
-                answerOption3 = "Abraham Lincoln",
-                answerOption4 = "John Adams",
-                correctAnswerIndex = 1,
-                appearances = 0,
-                correctlyAnswered = 0
+                question = "Who was the first president of the United States?",
+                answer = "George Washington"
             ),
-            QuestionEntity(
+            FlashCardEntity(
                 cardSetId = 1,
-                questionText = "When was the Declaration of Independence signed?",
-                answerOption1 = "1776",
-                answerOption2 = "1789",
-                answerOption3 = "1791",
-                answerOption4 = "1801",
-                correctAnswerIndex = 1,
-                appearances = 0,
-                correctlyAnswered = 0
+                question = "When was the Declaration of Independence signed?",
+                answer = "1776"
             ),
-            QuestionEntity(
+            FlashCardEntity(
                 cardSetId = 2,
-                questionText = "What is the chemical symbol for water?",
-                answerOption1 = "H2O",
-                answerOption2 = "CO2",
-                answerOption3 = "O2",
-                answerOption4 = "NaCl",
-                correctAnswerIndex = 1,
-                appearances = 0,
-                correctlyAnswered = 0
+                question = "What is the chemical symbol for water?",
+                answer = "H2O"
             ),
-            QuestionEntity(
+            FlashCardEntity(
                 cardSetId = 2,
-                questionText = "Who developed the theory of relativity?",
-                answerOption1 = "Albert Einstein",
-                answerOption2 = "Isaac Newton",
-                answerOption3 = "Galileo Galilei",
-                answerOption4 = "Stephen Hawking",
-                correctAnswerIndex = 1,
-                appearances = 0,
-                correctlyAnswered = 0
+                question = "Who developed the theory of relativity?",
+                answer = "Albert Einstein"
             ),
-            QuestionEntity(
+            FlashCardEntity(
                 cardSetId = 3,
-                questionText = "Who wrote 'To Kill a Mockingbird'?",
-                answerOption1 = "Harper Lee",
-                answerOption2 = "J.K. Rowling",
-                answerOption3 = "Ernest Hemingway",
-                answerOption4 = "William Shakespeare",
-                correctAnswerIndex = 1,
-                appearances = 0,
-                correctlyAnswered = 0
+                question = "Who wrote 'To Kill a Mockingbird'?",
+                answer = "Harper Lee"
             ),
-            QuestionEntity(
+            FlashCardEntity(
                 cardSetId = 3,
-                questionText = "What novel features the characters Elizabeth Bennet and Mr. Darcy?",
-                answerOption1 = "Pride and Prejudice",
-                answerOption2 = "Jane Eyre",
-                answerOption3 = "Weathering Heights",
-                answerOption4 = "Sense and Sensibility",
-                correctAnswerIndex = 1,
-                appearances = 0,
-                correctlyAnswered = 0
+                question = "What novel features the characters Elizabeth Bennet and Mr. Darcy?",
+                answer = "Pride and Prejudice"
             ),
-            QuestionEntity(
+            FlashCardEntity(
                 cardSetId = 4,
-                questionText = "What is 2 + 2?",
-                answerOption1 = "4",
-                answerOption2 = "5",
-                answerOption3 = "6",
-                answerOption4 = "7",
-                correctAnswerIndex = 1,
-                appearances = 0,
-                correctlyAnswered = 0
+                question = "What is 2 + 2?",
+                answer = "4"
             ),
-            QuestionEntity(
+            FlashCardEntity(
                 cardSetId = 4,
-                questionText = "What is the square root of 16?",
-                answerOption1 = "4",
-                answerOption2 = "5",
-                answerOption3 = "6",
-                answerOption4 = "7",
-                correctAnswerIndex = 1,
-                appearances = 0,
-                correctlyAnswered = 0
+                question = "What is the square root of 16?",
+                answer = "4"
             ),
-            QuestionEntity(
+            FlashCardEntity(
                 cardSetId = 5,
-                questionText = "Who painted the Mona Lisa?",
-                answerOption1 = "Leonardo da Vinci",
-                answerOption2 = "Vincent van Gogh",
-                answerOption3 = "Pablo Picasso",
-                answerOption4 = "Claude Monet",
-                correctAnswerIndex = 1,
-                appearances = 0,
-                correctlyAnswered = 0
+                question = "Who painted the Mona Lisa?",
+                answer = "Leonardo da Vinci"
             ),
-            QuestionEntity(
+            FlashCardEntity(
                 cardSetId = 5,
-                questionText = "Which art movement includes artists such as Jackson Pollock and Mark Rothko?",
-                answerOption1 = "Abstract Expressionism",
-                answerOption2 = "Cubism",
-                answerOption3 = "Impressionism",
-                answerOption4 = "Surrealism",
-                correctAnswerIndex = 1,
-                appearances = 0,
-                correctlyAnswered = 0
+                question = "Which art movement includes artists such as Jackson Pollock and Mark Rothko?",
+                answer = "Abstract Expressionism"
             )
         )
+
     }
 
     override fun onCreateView(
@@ -150,21 +99,74 @@ class CardSetFormFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val title = binding.editTextCardSetTitle.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // Do something before the text changes
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                viewModel
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                // Do something after the text changes
+            }
+        })
+
+        val dateRangeButton = binding.buttonDateRange
+        dateRangeButton.setOnClickListener{
+                view -> showDatePickerDialog()
+        }
+
+
         // Instantiate ViewModel and pass the list of questions
         viewModel = ViewModelProvider(this).get(CardSetViewModel::class.java)
-        viewModel.setQuestions(questionEntities)
+        viewModel.setQuestions(flashCardEntities)
 
         // Initialize RecyclerView
         val recyclerView = binding.recyclerViewQuestions
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         // Observe the list of questions from the ViewModel
-        viewModel.questionsLiveData.observe(viewLifecycleOwner) { questions ->
+        viewModel.questionsLiveData.observe(viewLifecycleOwner) { flashcards ->
             // Update RecyclerView adapter with the new list of questions
-            questionAdapter = QuestionAdapter(requireContext(), questions)
-            recyclerView.adapter = questionAdapter
+            flashCardAdapter = FlashCardAdapter(requireContext(), flashcards)
+            recyclerView.adapter = flashCardAdapter
         }
     }
+
+    private fun showDatePickerDialog() {
+        // Creating a MaterialDatePicker builder for selecting a date range
+        val builder = MaterialDatePicker.Builder.dateRangePicker()
+        builder.setTitleText("Select a date range")
+
+        // Building the date picker dialog
+        val datePicker = builder.build()
+        datePicker.addOnPositiveButtonClickListener { selection ->
+            // Retrieving the selected start and end dates
+            val startDate = Date(selection.first)
+            val endDate = Date(selection.second)
+
+            // Formatting the selected dates as strings
+            val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+            val startDateString = sdf.format(startDate)
+            val endDateString = sdf.format(endDate)
+
+            viewModel.setCardSetEndDate(startDate)
+            viewModel.setCardSetEndDate(endDate)
+
+            // Creating the date range string
+            val selectedDateRange = "$startDateString - $endDateString"
+
+            // Displaying the selected date range in the TextView
+            val selectedDate = binding.textViewSelectedDate
+            selectedDate.text = selectedDateRange
+        }
+
+        // Showing the date picker dialog
+        datePicker.show(childFragmentManager, "DATE_PICKER")
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

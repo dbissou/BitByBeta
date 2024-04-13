@@ -15,48 +15,46 @@
             android:layout_height="wrap_content"
             android:hint="Enter Card Set Title" />
 
-        <TextView
-            android:id="@+id/textViewStartDate"
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Start Date: YYYY-MM-DD" />
+            android:orientation="horizontal"
+            android:gravity="start|center"
+            android:layout_marginVertical="10dp">
 
-        <androidx.appcompat.widget.AppCompatButton
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonDateRange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="Choose Date Range"
+                android:drawableStart="@drawable/ic_calendar"
+                android:drawablePadding="8dp"
+                android:background="@drawable/button_background"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_marginEnd="8dp"
+                android:radius="4dp"/>
 
-            android:id="@+id/buttonSelectStartDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:text="Select Start Date"
-            android:background="@drawable/button_background"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:radius="4dp"/>
+            <TextView
+                android:id="@+id/textViewSelectedDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/textViewEndDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="End Date: YYYY-MM-DD" />
+        </LinearLayout>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/buttonSelectEndDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Select End Date"
-            android:background="@drawable/button_background"
-            android:textColor="#ffffff"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:radius="4dp"/>
+
 
         <!-- RecyclerView to display QuestionEntity cards -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewQuestions"
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
