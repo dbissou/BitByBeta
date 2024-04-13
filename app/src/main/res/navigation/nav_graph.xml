@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/LibraryFragment">
+    app:startDestination="@id/CardSetFormFragment">
 
 
     <fragment
@@ -22,11 +22,37 @@
         android:id="@+id/CardSetFormFragment"
         android:name="com.example.bitbybeta.CardSetFormFragment"
         android:label="Create Card Set"
-        tools:layout="@layout/fragment_card_set_form" />
+        tools:layout="@layout/fragment_card_set_form" >
+        <action
+            android:id="@+id/action_CardSetFormFragment_to_StudyStartFragment"
+            app:destination="@id/StudyStartFragment" />
+    </fragment>
+
+
     <fragment
         android:id="@+id/SettingsFragment"
         android:name="com.example.bitbybeta.SettingsFragment"
         android:label="@string/settings_fragment_label"
         tools:layout="@layout/fragment_settings">
+    </fragment>
+
+    <fragment
+        android:id="@+id/StudyStartFragment"
+        android:name="com.example.bitbybeta.StudyStartFragment"
+        android:label="Study Start Page Fragment"
+        tools:layout="@layout/fragment_study_start">
+        <action
+            android:id="@+id/action_StudyStartFragment_to_QuestionFragment"
+            app:destination="@id/QuestionFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/QuestionFragment"
+        android:name="com.example.bitbybeta.QuestionFragment"
+        android:label="Question Framgent"
+        tools:layout="@layout/fragment_question">
+        <action
+            android:id="@+id/action_QuestionFragment_to_CardSetFormFragment"
+            app:destination="@id/CardSetFormFragment"/>
     </fragment>
 </navigation>

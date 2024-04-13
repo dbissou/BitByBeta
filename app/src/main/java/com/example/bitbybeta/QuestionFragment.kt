@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.bitbybeta.databinding.FragmentQuestionBinding
 
 
@@ -30,10 +32,12 @@ class QuestionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //set up viewmodel
+        sharedViewModel = ViewModelProvider(requireActivity()).get(CardSetViewModel::class.java)
 
         //set up aux array
         questionAux = IntArray(sharedViewModel.getTotalQuestionCount())
-        for( i in 0..questionAux.size){
+        for( i in questionAux.indices){
             questionAux[i] = i
         }
         questionAux.shuffle()
@@ -46,18 +50,24 @@ class QuestionFragment : Fragment() {
 
         //button logic
         binding.cardButton.setOnClickListener {
-            //check for end of session
-
             //"flip" the card by changing its text
             if(binding.cardButton.text == question){
                 binding.cardButton.text = answer
             } else {
                 //pull next question from viewmodel and update values
                 qNum++
-                val nextQuest = sharedViewModel.getQuestion(questionAux[qNum])
-                question = nextQuest?.getQuestionText() ?:"error: question text not found"
-                answer = nextQuest?.getAnswerOption1() ?:"error: answer text not found"
-                binding.cardButton.text = question
+                //check for end of session
+                if (qNum == sharedViewModel.getStudyQuestionCount()) {
+                    //go to end screen/back ot cardset view
+                    qNum = 0
+                    findNavController().navigate(R.id.CardSetFormFragment)
+                } else {
+                    //go to next question otherwise
+                    val nextQuest = sharedViewModel.getQuestion(questionAux[qNum])
+                    question = nextQuest?.getQuestionText() ?:"error: question text not found"
+                    answer = nextQuest?.getAnswerOption1() ?:"error: answer text not found"
+                    binding.cardButton.text = question
+                }
             }
         }
     }
