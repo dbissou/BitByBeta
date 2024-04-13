@@ -3,32 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/LibraryFragment">
 
-    <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.example.bitbybeta.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
-
-        <action
-            android:id="@+id/action_FirstFragment_to_LibraryFragment"
-            app:destination="@id/LibraryFragment" />
-    </fragment>
     <fragment
         android:id="@+id/LibraryFragment"
         android:name="com.example.bitbybeta.LibraryFragment"
         android:label="@string/library_fragment_label"
         tools:layout="@layout/fragment_library">
-
         <action
-            android:id="@+id/action_LibraryFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_LibraryFragment_to_CardSetFormFragment"
+            app:destination="@id/CardSetFormFragment" />
+
+
     </fragment>
+
+
+    <fragment
+        android:id="@+id/CardSetFormFragment"
+        android:name="com.example.bitbybeta.CardSetFormFragment"
+        android:label="Create Card Set"
+        tools:layout="@layout/fragment_card_set_form" />
+
     <fragment
         android:id="@+id/SettingsFragment"
         android:name="com.example.bitbybeta.SettingsFragment"
         android:label="@string/settings_fragment_label"
         tools:layout="@layout/fragment_settings">
     </fragment>
+
 </navigation>
