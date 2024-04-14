@@ -11,7 +11,7 @@ data class CardSetEntity(
     private var cardSetStartDate: Date?,
     private var cardSetEndDate: Date?
 ) {
-    val cards: MutableList<QuestionEntity> = mutableListOf()
+    val cards: MutableList<FlashCardEntity> = mutableListOf()
 
     // Getters and Setters for cardSetTitle
     fun getCardSetTitle(): String? {
@@ -41,11 +41,11 @@ data class CardSetEntity(
     }
 
     // Other methods remain unchanged
-    fun addQuestion(question: QuestionEntity) {
+    fun addQuestion(question: FlashCardEntity) {
         cards.add(question)
     }
 
-    fun removeQuestion(question: QuestionEntity) {
+    fun removeQuestion(question: FlashCardEntity) {
         cards.remove(question)
     }
 
@@ -53,7 +53,7 @@ data class CardSetEntity(
         return cards.size
     }
 
-    fun getQuestion(index: Int): QuestionEntity? {
+    fun getQuestion(index: Int): FlashCardEntity? {
         return if (index >= 0 && index < cards.size) {
             cards[index]
         } else {
