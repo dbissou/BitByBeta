@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bitbybeta.adapter.FlashCardAdapter
 import com.example.bitbybeta.adapter.QuestionAdapter
@@ -120,7 +121,7 @@ class CardSetFormFragment : Fragment() {
 
 
         // Instantiate ViewModel and pass the list of questions
-        viewModel = ViewModelProvider(this).get(CardSetViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity()).get(CardSetViewModel::class.java)
         viewModel.setQuestions(flashCardEntities)
 
         // Initialize RecyclerView
@@ -132,6 +133,13 @@ class CardSetFormFragment : Fragment() {
             // Update RecyclerView adapter with the new list of questions
             flashCardAdapter = FlashCardAdapter(requireContext(), flashcards)
             recyclerView.adapter = flashCardAdapter
+        }
+
+        //navigate to study start on click
+        binding.startStudyButton.setOnClickListener {
+            if(viewModel.getTotalQuestionCount() > 0){
+                findNavController().navigate(R.id.StudyStartFragment)
+            }
         }
     }
 

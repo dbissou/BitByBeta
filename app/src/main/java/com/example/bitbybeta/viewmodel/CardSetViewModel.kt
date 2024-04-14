@@ -52,6 +52,9 @@ class CardSetViewModel : ViewModel() {
         cardSetEndDate = endDate
     }
 
+    //variable to hold number of questions for study session; defaults to max
+    private var studyQuestionCount = cards.size
+
     // Function to add a question to the list
     fun addQuestion(question: FlashCardEntity) {
         cards.add(question)
@@ -93,5 +96,14 @@ class CardSetViewModel : ViewModel() {
         cards.clear()
         // Notify observers that the list has been updated
         _questionsLiveData.value = emptyList()
+    }
+
+    //get and set question count for specific study session
+    fun setStudyQuestionCount(n: Int) {
+        studyQuestionCount = n
+    }
+
+    fun getStudyQuestionCount(): Int {
+        return studyQuestionCount
     }
 }
