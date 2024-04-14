@@ -27,7 +27,6 @@ class CardSetFormFragment : Fragment() {
     private var _binding: FragmentCardSetFormBinding? = null // Declare the binding variable
     private val binding get() = _binding!! // Non-null assertion for the binding variable
 
-    private lateinit var questionAdapter: QuestionAdapter
     private lateinit var viewModel: CardSetViewModel
     private lateinit var flashCardAdapter: FlashCardAdapter
 
@@ -122,8 +121,8 @@ class CardSetFormFragment : Fragment() {
 
 
         // Instantiate ViewModel and pass the list of questions
-        sharedViewModel = ViewModelProvider(requireActivity()).get(CardSetViewModel::class.java)
-        sharedViewModel.setQuestions(questionEntities)
+        viewModel = ViewModelProvider(requireActivity()).get(CardSetViewModel::class.java)
+        viewModel.setQuestions(flashCardEntities)
 
         // Initialize RecyclerView
         val recyclerView = binding.recyclerViewQuestions
@@ -138,7 +137,7 @@ class CardSetFormFragment : Fragment() {
 
         //navigate to study start on click
         binding.startStudyButton.setOnClickListener {
-            if(sharedViewModel.getTotalQuestionCount() > 0){
+            if(viewModel.getTotalQuestionCount() > 0){
                 findNavController().navigate(R.id.StudyStartFragment)
             }
         }

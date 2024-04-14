@@ -5,26 +5,17 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/CardSetFormFragment">
 
-
-<<<<<<<<< Temporary merge branch 1
-        <action
-            android:id="@+id/action_FirstFragment_to_LibraryFragment"
-            app:destination="@id/LibraryFragment" />
-    </fragment>
-=========
->>>>>>>>> Temporary merge branch 2
     <fragment
         android:id="@+id/LibraryFragment"
         android:name="com.example.bitbybeta.LibraryFragment"
         android:label="@string/library_fragment_label"
         tools:layout="@layout/fragment_library">
+
         <action
             android:id="@+id/action_LibraryFragment_to_CardSetFormFragment"
             app:destination="@id/CardSetFormFragment" />
-
-
     </fragment>
-<<<<<<<<< Temporary merge branch 1
+
     <fragment
         android:id="@+id/CardSetFormFragment"
         android:name="com.example.bitbybeta.CardSetFormFragment"

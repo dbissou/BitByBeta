@@ -44,8 +44,8 @@ class QuestionFragment : Fragment() {
 
         //initialize question and answer
         val q = sharedViewModel.getQuestion(questionAux[0])
-        question = q?.getQuestionText() ?:"error: question text not found"
-        answer = q?.getAnswerOption1() ?:"error: answer text not found"
+        question = q?.question ?:"error: question text not found"
+        answer = q?.answer ?:"error: answer text not found"
         binding.cardButton.text = question
 
         //button logic
@@ -64,8 +64,8 @@ class QuestionFragment : Fragment() {
                 } else {
                     //go to next question otherwise
                     val nextQuest = sharedViewModel.getQuestion(questionAux[qNum])
-                    question = nextQuest?.getQuestionText() ?:"error: question text not found"
-                    answer = nextQuest?.getAnswerOption1() ?:"error: answer text not found"
+                    question = nextQuest?.question ?:"error: question text not found"
+                    answer = nextQuest?.answer ?:"error: answer text not found"
                     binding.cardButton.text = question
                 }
             }
