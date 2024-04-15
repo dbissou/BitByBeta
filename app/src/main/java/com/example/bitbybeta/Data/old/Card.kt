@@ -1,9 +1,8 @@
-package com.example.bitbybeta.Data
+package com.example.bitbybeta.Data.old
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import java.time.ZonedDateTime
-import java.util.Date
 
 @Entity(tableName = "card_table",
     foreignKeys = [ForeignKey(entity = Set::class,

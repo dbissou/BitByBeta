@@ -8,7 +8,7 @@ import java.util.*
 data class CardSetEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     private var cardSetTitle: String?,
-    private var cardSetStartDate: Date?,
+    private var cardSetStartDate: Date?, // will need to be converted to work in Room DB
     private var cardSetEndDate: Date?
 ) {
     val cards: MutableList<FlashCardEntity> = mutableListOf()

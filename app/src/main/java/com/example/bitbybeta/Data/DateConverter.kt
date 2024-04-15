@@ -1,20 +1,16 @@
 import androidx.room.TypeConverter
-import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
+import java.util.Date
 
 
-class Converters {
-    private val formatter = DateTimeFormatter.ISO_ZONED_DATE_TIME
 
+class DateConverter {
     @TypeConverter
-    fun fromZonedDateTime(date: ZonedDateTime?): String? {
-        return date?.format(formatter)
+    fun toDate(timestamp: Long?): Date? {
+        return timestamp?.let { Date(it) }
     }
 
     @TypeConverter
-    fun toZonedDateTime(value: String?): ZonedDateTime? {
-        return value?.let {
-            return@let ZonedDateTime.parse(it, formatter)
-        }
+    fun toTimestamp(date: Date?): Long? {
+        return date?.time
     }
 }

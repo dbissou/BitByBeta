@@ -1,7 +1,7 @@
 // access all queries from the DOA
 // provide data to the UI and survive config changes
 
-package com.example.bitbybeta.Data
+package com.example.bitbybeta.Data.old
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData

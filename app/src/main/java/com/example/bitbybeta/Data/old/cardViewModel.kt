@@ -1,14 +1,12 @@
 // access all queries from the DOA
 // provide data to the UI and survive config changes
 
-package com.example.bitbybeta.Data
+package com.example.bitbybeta.Data.old
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import androidx.lifecycle.switchMap
 //import androidx.lifecycle.Transformations

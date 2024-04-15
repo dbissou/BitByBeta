@@ -1,11 +1,25 @@
+// access all queries from the Dao
+// communication from Repo to UI
+package com.example.bitbybeta.entity
+
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.example.bitbybeta.entity.FlashCardEntity
-import com.example.bitbybeta.entity.QuestionEntity
+import com.example.bitbybeta.Data.AppDatabase
+import com.example.bitbybeta.Data.CardSetRepo
 import java.util.Date
 
-class CardSetViewModel : ViewModel() {
+class CardSetViewModel(application: Application) : AndroidViewModel(application) {
+
+    private val repository: CardSetRepo
+    private val readAllData: LiveData<List<CardSetEntity>>
+
+    init {
+        val cardSetDao = AppDatabase.getDatabase(application).CardSetDao()
+        repository = CardSetRepo(cardSetDao)
+        readAllData = repository.readAllData
+    }
 
     // MutableLiveData to hold the list of questions
     private val _questionsLiveData = MutableLiveData<List<FlashCardEntity>>()

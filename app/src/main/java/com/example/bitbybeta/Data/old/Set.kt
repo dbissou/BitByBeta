@@ -1,4 +1,4 @@
-package com.example.bitbybeta.Data
+package com.example.bitbybeta.Data.old
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
