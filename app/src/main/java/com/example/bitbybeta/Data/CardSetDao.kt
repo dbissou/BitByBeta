@@ -11,7 +11,7 @@ import androidx.room.Update
 @Dao
 interface CardSetDao {
     @Insert
-    suspend fun insertCardSet(cardSet: CardSetEntity)
+    suspend fun insertCardSet(cardSet: CardSetEntity): Long
     @Update
     fun updateCardSet(cardSet: CardSetEntity)
 

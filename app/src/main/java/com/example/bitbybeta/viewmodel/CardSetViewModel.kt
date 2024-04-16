@@ -6,8 +6,12 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.bitbybeta.Data.AppDatabase
+import com.example.bitbybeta.Data.CardSetDao
 import com.example.bitbybeta.Data.CardSetRepo
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.Date
 
 class CardSetViewModel(application: Application) : AndroidViewModel(application) {
@@ -19,6 +23,13 @@ class CardSetViewModel(application: Application) : AndroidViewModel(application)
         val cardSetDao = AppDatabase.getDatabase(application).CardSetDao()
         repository = CardSetRepo(cardSetDao)
         readAllData = repository.readAllData
+    }
+
+    fun addCardSet(cardSetTitle: String?, startDate: Date?, endDate: Date?) {
+        val newCardSet = CardSetEntity(cardSetTitle = cardSetTitle, cardSetStartDate = startDate, cardSetEndDate = endDate)
+        viewModelScope.launch {
+            repository.addCardSet(newCardSet)
+        }
     }
 
     // MutableLiveData to hold the list of questions

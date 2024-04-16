@@ -1,5 +1,5 @@
 package com.example.bitbybeta.Data
-import DateConverter
+import Converters
 import com.example.bitbybeta.entity.CardSetEntity
 import com.example.bitbybeta.entity.FlashCardEntity
 import android.content.Context
@@ -9,7 +9,7 @@ import  androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
 @Database(entities = [CardSetEntity::class, FlashCardEntity::class], version = 1, exportSchema = false) // set to false as we won't be needing to track schema version hist in our proj
-@TypeConverters(DateConverter::class)
+@TypeConverters(Converters::class)
 abstract class AppDatabase  : RoomDatabase() {
     abstract fun CardSetDao(): CardSetDao
     //abstract fun cardDao(): CardDao
