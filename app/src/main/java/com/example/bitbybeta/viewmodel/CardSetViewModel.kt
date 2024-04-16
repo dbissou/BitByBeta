@@ -25,10 +25,25 @@ class CardSetViewModel(application: Application) : AndroidViewModel(application)
         readAllData = repository.readAllData
     }
 
+    // insert cardset to db
     fun addCardSet(cardSetTitle: String?, startDate: Date?, endDate: Date?) {
         val newCardSet = CardSetEntity(cardSetTitle = cardSetTitle, cardSetStartDate = startDate, cardSetEndDate = endDate)
         viewModelScope.launch {
             repository.addCardSet(newCardSet)
+        }
+    }
+
+    // delete cardset from db
+    fun deleteCardSet(cardSet: CardSetEntity) {
+        viewModelScope.launch {
+            repository.deleteCardSet(cardSet)
+        }
+    }
+
+    // update cardset from bd
+    fun updateCardSet(cardSet: CardSetEntity) {
+        viewModelScope.launch {
+            repository.updateCardSet(cardSet)
         }
     }
 

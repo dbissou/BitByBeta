@@ -12,7 +12,7 @@ import androidx.room.TypeConverters
 @TypeConverters(Converters::class)
 abstract class AppDatabase  : RoomDatabase() {
     abstract fun CardSetDao(): CardSetDao
-    //abstract fun cardDao(): CardDao
+    abstract fun FlashCardDao(): FlashCardDao
 
     companion object{
         // allow writes to be made visible to other threads
