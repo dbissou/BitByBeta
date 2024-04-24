@@ -21,4 +21,10 @@ interface FlashCardDao {
 
     @Query("SELECT * FROM flashcards WHERE cardSetId = :cardSetId")
     fun getFlashCardsByCardSetId(cardSetId: Long): LiveData<List<FlashCardEntity>>
+
+    @Query("DELETE FROM flashcards WHERE cardSetId = :cardSetId")
+    suspend fun clearFlashCards(cardSetId: Long)
+
+    @Query("SELECT COUNT(id) FROM flashcards WHERE cardSetId = :cardSetId")
+    fun countFlashCards(cardSetId: Long): LiveData<Int>
 }

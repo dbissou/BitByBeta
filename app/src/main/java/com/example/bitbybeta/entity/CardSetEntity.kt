@@ -8,10 +8,10 @@ import java.util.*
 data class CardSetEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     private var cardSetTitle: String?,
-    private var cardSetStartDate: Date?, // will need to be converted to work in Room DB
+    private var cardSetStartDate: Date?,
     private var cardSetEndDate: Date?
 ) {
-    val cards: MutableList<FlashCardEntity> = mutableListOf()
+    val cards: MutableList<FlashCardEntity> = mutableListOf() // convert
 
     // Getters and Setters for cardSetTitle
     fun getCardSetTitle(): String? {

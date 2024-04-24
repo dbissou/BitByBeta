@@ -1,6 +1,6 @@
 package com.example.bitbybeta
 
-import CardSetViewModel
+//import CardSetViewModel
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.bitbybeta.databinding.FragmentStudyStartBinding
+import com.example.bitbybeta.entity.CardSetViewModel
 
 
 class StudyStartFragment: Fragment() {

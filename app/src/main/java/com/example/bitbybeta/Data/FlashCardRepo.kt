@@ -1,8 +1,8 @@
 package com.example.bitbybeta.Data
 
 import androidx.lifecycle.LiveData
-import com.example.bitbybeta.entity.CardSetEntity
 import com.example.bitbybeta.entity.FlashCardEntity
+import com.example.bitbybeta.entity.CardSetEntity
 
 class FlashCardRepo(private val flashCardDao: FlashCardDao) {
     // LiveData observing all flashcards for a specific card set
@@ -35,5 +35,13 @@ class FlashCardRepo(private val flashCardDao: FlashCardDao) {
         } catch (e: Exception) {
             Result.failure(e)
         }
+    }
+
+    suspend fun clearFlashCards(cardSetId: Long) {
+        flashCardDao.clearFlashCards(cardSetId)
+    }
+
+    fun getTotalFlashCards(cardSetId: Long): LiveData<Int> {
+        return flashCardDao.countFlashCards(cardSetId)
     }
 }

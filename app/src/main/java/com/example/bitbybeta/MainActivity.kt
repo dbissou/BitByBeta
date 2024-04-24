@@ -1,6 +1,6 @@
 package com.example.bitbybeta
 
-import CardSetViewModel
+//import CardSetViewModel
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -11,6 +11,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.lifecycle.ViewModelProvider
 import com.example.bitbybeta.databinding.ActivityMainBinding
+import com.example.bitbybeta.entity.CardSetViewModel
 
 class MainActivity : AppCompatActivity() {
 

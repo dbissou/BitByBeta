@@ -48,4 +48,14 @@ class FlashCardViewModel(application: Application) : AndroidViewModel(applicatio
             val result = repository.deleteFlashCard(flashCard)
         }
     }
+
+    fun clearFlashCards(cardSetId: Long) {
+        viewModelScope.launch {
+            repository.clearFlashCards(cardSetId)
+        }
+    }
+
+    fun getTotalFlashCards(cardSetId: Long): LiveData<Int> {
+        return repository.getTotalFlashCards(cardSetId)
+    }
 }

@@ -1,6 +1,6 @@
 package com.example.bitbybeta
 
-import CardSetViewModel
+//import CardSetViewModel
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.text.Editable
@@ -14,9 +14,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bitbybeta.adapter.FlashCardAdapter
 import com.example.bitbybeta.adapter.QuestionAdapter
 import com.example.bitbybeta.databinding.FragmentCardSetFormBinding
+import com.example.bitbybeta.entity.CardSetViewModel
 import com.example.bitbybeta.entity.FlashCardEntity
 import com.example.bitbybeta.entity.QuestionEntity
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.example.bitbybeta.MainActivity
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -27,13 +29,8 @@ class CardSetFormFragment : Fragment() {
     private var _binding: FragmentCardSetFormBinding? = null // Declare the binding variable
     private val binding get() = _binding!! // Non-null assertion for the binding variable
 
-<<<<<<<<< Temporary merge branch 1
-    private lateinit var sharedViewModel: CardSetViewModel
-    private lateinit var questionAdapter: QuestionAdapter
-=========
     private lateinit var viewModel: CardSetViewModel
     private lateinit var flashCardAdapter: FlashCardAdapter
->>>>>>>>> Temporary merge branch 2
 
 
     companion object {
@@ -126,24 +123,17 @@ class CardSetFormFragment : Fragment() {
 
 
         // Instantiate ViewModel and pass the list of questions
-<<<<<<<<< Temporary merge branch 1
-        sharedViewModel = ViewModelProvider(requireActivity()).get(CardSetViewModel::class.java)
-        sharedViewModel.setQuestions(questionEntities)
-=========
+
         viewModel = ViewModelProvider(this).get(CardSetViewModel::class.java)
         viewModel.setQuestions(flashCardEntities)
->>>>>>>>> Temporary merge branch 2
 
         // Initialize RecyclerView
         val recyclerView = binding.recyclerViewQuestions
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         // Observe the list of questions from the ViewModel
-<<<<<<<<< Temporary merge branch 1
-        sharedViewModel.questionsLiveData.observe(viewLifecycleOwner) { questions ->
-=========
         viewModel.questionsLiveData.observe(viewLifecycleOwner) { flashcards ->
->>>>>>>>> Temporary merge branch 2
+
             // Update RecyclerView adapter with the new list of questions
             flashCardAdapter = FlashCardAdapter(requireContext(), flashcards)
             recyclerView.adapter = flashCardAdapter
