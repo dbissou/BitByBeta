@@ -76,6 +76,20 @@
             android:radius="4dp"/>
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonNotificationDemo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Send a Notification! [DEMO]"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/button_primary_green"
+            android:textColor="#ffffff"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:radius="4dp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonSaveCardSet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
