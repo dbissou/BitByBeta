@@ -1,6 +1,10 @@
 package com.example.bitbybeta
 
 import CardSetViewModel
+import android.Manifest
+import android.app.PendingIntent
+import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.text.Editable
@@ -9,6 +13,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bitbybeta.adapter.FlashCardAdapter
@@ -30,6 +37,7 @@ class CardSetFormFragment : Fragment() {
     private lateinit var viewModel: CardSetViewModel
     private lateinit var flashCardAdapter: FlashCardAdapter
 
+    private val NOTIFICATION_ID = 38
 
     companion object {
         fun newInstance() = CardSetFormFragment()
@@ -141,6 +149,10 @@ class CardSetFormFragment : Fragment() {
                 findNavController().navigate(R.id.StudyStartFragment)
             }
         }
+
+        binding.buttonNotificationDemo.setOnClickListener {
+            sendNotification("Ready to study? Here's a question:")
+        }
     }
 
     private fun showDatePickerDialog() {
@@ -175,11 +187,54 @@ class CardSetFormFragment : Fragment() {
         datePicker.show(childFragmentManager, "DATE_PICKER")
     }
 
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
+    fun sendNotification(msg: String) {
+        // set up intent (where notification will send you)
+        val intent = Intent(requireContext(), MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        val q = viewModel.getQuestion((0..<viewModel.getTotalQuestionCount()).random())
+        intent.putExtra("question", q?.question)
+        intent.putExtra("answer", q?.answer)
 
+        val pendingIntent: PendingIntent =
+            PendingIntent.getActivity(requireContext(), 0, intent, PendingIntent.FLAG_IMMUTABLE)
+
+        //set up builder for notification
+        var builder = NotificationCompat.Builder(
+            requireContext(),
+            getString(R.string.notification_channel_id)
+        )
+            .setSmallIcon(R.drawable.cards)
+            .setContentTitle("Study Reminder!")
+            .setContentText(msg)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            // Set the intent that fires when the user taps the notification.
+            .setContentIntent(pendingIntent)
+            .setAutoCancel(true)
+
+        //build and send notification
+        with(NotificationManagerCompat.from(requireContext())) {
+            if (ActivityCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                // TODO: Consider calling
+                // ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                // public fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>,
+                //                                        grantResults: IntArray)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+
+                return@with
+            }
+            notify(NOTIFICATION_ID, builder.build())
+        }
+    }
 }

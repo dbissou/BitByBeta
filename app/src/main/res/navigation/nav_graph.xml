@@ -53,4 +53,14 @@
             android:id="@+id/action_QuestionFragment_to_CardSetFormFragment"
             app:destination="@id/CardSetFormFragment"/>
     </fragment>
+
+    <fragment
+        android:id="@+id/NotificationLandingFragment"
+        android:name="com.example.bitbybeta.NotificationLandingFragment"
+        android:label="Notification Landing Fragment"
+        tools:layout="@layout/fragment_question">
+        <action
+            android:id="@+id/action_NotificationLandingFragment_to_CardSetFormFragment"
+            app:destination="@id/CardSetFormFragment"/>
+    </fragment>
 </navigation>
