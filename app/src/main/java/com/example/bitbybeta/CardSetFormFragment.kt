@@ -151,7 +151,7 @@ class CardSetFormFragment : Fragment() {
         }
 
         binding.buttonNotificationDemo.setOnClickListener {
-            sendNotification("Ready to study " + viewModel.getCardSetTitle() + "?")
+            sendNotification("Ready to study? Here's a question:")
         }
     }
 
@@ -210,7 +210,7 @@ class CardSetFormFragment : Fragment() {
             getString(R.string.notification_channel_id)
         )
             .setSmallIcon(R.drawable.cards)
-            .setContentTitle("real notification")
+            .setContentTitle("Study Reminder!")
             .setContentText(msg)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             // Set the intent that fires when the user taps the notification.
