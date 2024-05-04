@@ -1,6 +1,7 @@
 package com.example.bitbybeta
 
 import CardSetViewModel
+import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
@@ -40,6 +41,13 @@ class MainActivity : AppCompatActivity() {
 
         createNotificationChannel()
 
+        val question = intent?.extras?.getString("question")
+        if(question != null){
+            val fTransaction = supportFragmentManager.beginTransaction()
+            fTransaction.replace(android.R.id.content, NotificationLandingFragment()).commit()
+
+        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -64,6 +72,16 @@ class MainActivity : AppCompatActivity() {
                 || super.onSupportNavigateUp()
     }
 
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        val question = intent?.extras?.getString("question")
+        if(question != null){
+            val fTransaction = supportFragmentManager.beginTransaction()
+            fTransaction.replace(android.R.id.content, NotificationLandingFragment()).commit()
+
+        }
+    }
     //create channel to send notifications through
     private fun createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because

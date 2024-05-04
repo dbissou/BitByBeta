@@ -93,6 +93,7 @@ class LibraryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         val recyclerView = binding.CardSetRecyclerView
         val cardSetAdapter = CardSetAdapter(cardSetEntities)
         recyclerView.adapter = cardSetAdapter

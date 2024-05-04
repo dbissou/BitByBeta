@@ -195,7 +195,7 @@ class CardSetFormFragment : Fragment() {
     fun sendNotification(msg: String) {
         // set up intent (where notification will send you)
         val intent = Intent(requireContext(), MainActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
         val q = viewModel.getQuestion((0..<viewModel.getTotalQuestionCount()).random())
         intent.putExtra("question", q?.question)
