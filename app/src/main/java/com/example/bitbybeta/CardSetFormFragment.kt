@@ -37,7 +37,7 @@ class CardSetFormFragment : Fragment() {
     private lateinit var viewModel: CardSetViewModel
     private lateinit var flashCardAdapter: FlashCardAdapter
 
-    private val NOTIFICATION_ID = 1
+    private val NOTIFICATION_ID = 38
 
     companion object {
         fun newInstance() = CardSetFormFragment()
