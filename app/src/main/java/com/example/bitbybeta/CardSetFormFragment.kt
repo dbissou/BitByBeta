@@ -151,7 +151,7 @@ class CardSetFormFragment : Fragment() {
         }
 
         binding.buttonNotificationDemo.setOnClickListener {
-            sendNotification("TESTING")
+            sendNotification("Ready to study " + viewModel.getCardSetTitle() + "?")
         }
     }
 
@@ -197,6 +197,10 @@ class CardSetFormFragment : Fragment() {
         val intent = Intent(requireContext(), MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
+        val q = viewModel.getQuestion((0..<viewModel.getTotalQuestionCount()).random())
+        intent.putExtra("question", q?.question)
+        intent.putExtra("answer", q?.answer)
+
         val pendingIntent: PendingIntent =
             PendingIntent.getActivity(requireContext(), 0, intent, PendingIntent.FLAG_IMMUTABLE)
 
