@@ -23,6 +23,9 @@ class CardSetViewModel : ViewModel() {
     private var currentQuestion: String? = ""
     private var currentAnswer: String? = ""
 
+    //variable to hold number of questions for study session; defaults to max
+    private var studyQuestionCount = flashcards.size
+
     // Function to get cardSetTitle
     fun getCardSetTitle(): String? {
         return cardSetTitle
@@ -126,5 +129,14 @@ class CardSetViewModel : ViewModel() {
         flashcards.clear()
         // Notify observers that the list has been updated
         _flashcardsLiveData.value = emptyList()
+    }
+
+    //get and set question count for specific study session
+    fun setStudyQuestionCount(n: Int) {
+        studyQuestionCount = n
+    }
+
+    fun getStudyQuestionCount(): Int {
+        return studyQuestionCount
     }
 }

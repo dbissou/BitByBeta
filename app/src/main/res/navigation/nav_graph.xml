@@ -10,19 +10,22 @@
         android:name="com.example.bitbybeta.LibraryFragment"
         android:label="@string/library_fragment_label"
         tools:layout="@layout/fragment_library">
+
         <action
             android:id="@+id/action_LibraryFragment_to_CardSetFormFragment"
             app:destination="@id/CardSetFormFragment" />
-
-
     </fragment>
-
 
     <fragment
         android:id="@+id/CardSetFormFragment"
         android:name="com.example.bitbybeta.CardSetFormFragment"
         android:label="Create Card Set"
-        tools:layout="@layout/fragment_card_set_form" />
+        tools:layout="@layout/fragment_card_set_form" >
+        <action
+            android:id="@+id/action_CardSetFormFragment_to_StudyStartFragment"
+            app:destination="@id/StudyStartFragment" />
+    </fragment>
+
 
     <fragment
         android:id="@+id/SettingsFragment"
@@ -31,4 +34,33 @@
         tools:layout="@layout/fragment_settings">
     </fragment>
 
+    <fragment
+        android:id="@+id/StudyStartFragment"
+        android:name="com.example.bitbybeta.StudyStartFragment"
+        android:label="Study Start Page Fragment"
+        tools:layout="@layout/fragment_study_start">
+        <action
+            android:id="@+id/action_StudyStartFragment_to_QuestionFragment"
+            app:destination="@id/QuestionFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/QuestionFragment"
+        android:name="com.example.bitbybeta.QuestionFragment"
+        android:label="Question Framgent"
+        tools:layout="@layout/fragment_question">
+        <action
+            android:id="@+id/action_QuestionFragment_to_CardSetFormFragment"
+            app:destination="@id/CardSetFormFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/NotificationLandingFragment"
+        android:name="com.example.bitbybeta.NotificationLandingFragment"
+        android:label="Notification Landing Fragment"
+        tools:layout="@layout/fragment_question">
+        <action
+            android:id="@+id/action_NotificationLandingFragment_to_CardSetFormFragment"
+            app:destination="@id/CardSetFormFragment"/>
+    </fragment>
 </navigation>

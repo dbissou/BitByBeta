@@ -17,13 +17,19 @@
             android:minHeight="50dp"
             android:hint="Enter Card Set Title" />
 
+        <Button
+            android:id="@+id/start_study_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Start Study Session" />
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/textViewStartDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="start|center"
-            android:layout_marginVertical="10dp">
+            android:layout_marginVertical="10dp"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/buttonDateRange"
@@ -48,10 +54,6 @@
                 android:text=""
                 android:textColor="@android:color/black"
                 android:textSize="16sp" />
-
-        </LinearLayout>
-
-
 
         <!-- RecyclerView to display QuestionEntity cards -->
         <androidx.recyclerview.widget.RecyclerView
@@ -170,20 +172,13 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        <EditText
-            android:id="@+id/editTextQuestionGenerator"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter Text for Question Generation"
-            android:maxLines="5"
-            android:minHeight="50dp"
-            android:scrollbars="vertical" />
+
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/buttonGenerateQuestions"
+            android:id="@+id/buttonNotificationDemo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Generate Questions"
+            android:text="Send a Notification! [DEMO]"
             android:layout_marginTop="16dp"
             android:background="@drawable/button_primary_green"
             android:textColor="#ffffff"
