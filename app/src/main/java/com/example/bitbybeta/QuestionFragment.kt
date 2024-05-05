@@ -36,7 +36,7 @@ class QuestionFragment : Fragment() {
         sharedViewModel = ViewModelProvider(requireActivity()).get(CardSetViewModel::class.java)
 
         //set up aux array
-        questionAux = IntArray(sharedViewModel.getStudyQuestionCount())
+        questionAux = IntArray(sharedViewModel.getTotalFlashCardCount())
         for( i in questionAux.indices){
             questionAux[i] = i
         }
