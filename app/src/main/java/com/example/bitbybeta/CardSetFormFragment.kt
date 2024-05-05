@@ -126,7 +126,7 @@ class CardSetFormFragment : Fragment() {
 
 
         // Instantiate ViewModel and pass the list of questions
-        viewModel = ViewModelProvider(this).get(CardSetViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity()).get(CardSetViewModel::class.java)
         viewModel.setFlashCards(flashCardEntities)
 
 
