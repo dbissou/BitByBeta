@@ -103,7 +103,6 @@ class LibraryFragment : Fragment() {
         option1.setOnClickListener {
             // Handle option 1 click here (e.g., dismiss dialog, perform action)
             bottomSheetDialog.dismiss()
-            Snackbar.make(view, "Option 1 selected!", Snackbar.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_LibraryFragment_to_CardSetFormFragment)
         }
 

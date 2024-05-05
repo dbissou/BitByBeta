@@ -83,10 +83,24 @@
                         android:id="@+id/text_end_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Jan 31, 2024"
+                        android:text="Jan 21, 2024"
                         android:textSize="14sp" />
 
                 </LinearLayout>
+
+                <!-- Add Slider Here -->
+                <SeekBar
+                    android:id="@+id/slider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:max="6"
+                    android:progress="3"
+                    android:tickMark="@drawable/tick_mark"
+                    android:thumb="@drawable/thumb_slider"
+                    app:layout_constraintTop_toBottomOf="@id/text_start_date_label" />
+
+
 
             </LinearLayout>
 

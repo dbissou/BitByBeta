@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bitbybeta.entity.FlashCardEntity
@@ -11,7 +12,8 @@ import com.example.bitbybeta.R
 
 class FlashCardAdapter(
     private val context: Context,
-    private val flashCards: List<FlashCardEntity>
+    private val flashCards: List<FlashCardEntity>,
+    private val onDeleteClickListener: (FlashCardEntity) -> Unit
 ) : RecyclerView.Adapter<FlashCardAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,6 +27,11 @@ class FlashCardAdapter(
         // Bind question and answer
         holder.textViewQuestion.text = flashCard.question
         holder.textViewAnswer.text = flashCard.answer
+
+        // Set click listener for delete button
+        holder.deleteButton.setOnClickListener {
+            onDeleteClickListener(flashCard)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -34,5 +41,6 @@ class FlashCardAdapter(
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textViewQuestion: TextView = itemView.findViewById(R.id.textViewQuestion)
         val textViewAnswer: TextView = itemView.findViewById(R.id.textViewAnswer)
+        val deleteButton: ImageButton = itemView.findViewById(R.id.deleteButton)
     }
 }

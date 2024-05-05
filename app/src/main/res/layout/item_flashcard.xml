@@ -69,13 +69,13 @@
             android:gravity="end">
 
             <ImageButton
-                android:id="@+id/cancelButton"
+                android:id="@+id/deleteButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_delete"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:padding="16dp"
-                android:contentDescription="Cancel" />
+                android:contentDescription="Delete" />
 
 
 

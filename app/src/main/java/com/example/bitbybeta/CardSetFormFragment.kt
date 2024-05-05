@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bitbybeta.adapter.FlashCardAdapter
 import com.example.bitbybeta.adapter.QuestionAdapter
 import com.example.bitbybeta.databinding.FragmentCardSetFormBinding
+import com.example.bitbybeta.entity.CardSetEntity
 import com.example.bitbybeta.entity.FlashCardEntity
 import com.example.bitbybeta.entity.QuestionEntity
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -101,15 +102,11 @@ class CardSetFormFragment : Fragment() {
 
         val title = binding.editTextCardSetTitle.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                // Do something before the text changes
             }
-
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                viewModel
             }
-
             override fun afterTextChanged(s: Editable?) {
-                // Do something after the text changes
+                viewModel.setCardSetTitle(s.toString())
             }
         })
 
@@ -121,18 +118,72 @@ class CardSetFormFragment : Fragment() {
 
         // Instantiate ViewModel and pass the list of questions
         viewModel = ViewModelProvider(this).get(CardSetViewModel::class.java)
-        viewModel.setQuestions(flashCardEntities)
+        viewModel.setFlashCards(flashCardEntities)
 
         // Initialize RecyclerView
         val recyclerView = binding.recyclerViewQuestions
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
+        val onDeleteClickListener: (FlashCardEntity) -> Unit = { flashCard ->
+            // Implement the logic to delete the flash card
+            // For example, you can call a ViewModel function to delete the flash card
+            viewModel.removeFlashCard(flashCard)
+        }
+
         // Observe the list of questions from the ViewModel
-        viewModel.questionsLiveData.observe(viewLifecycleOwner) { flashcards ->
+        viewModel.flashcardsLiveData.observe(viewLifecycleOwner) { flashcards ->
             // Update RecyclerView adapter with the new list of questions
-            flashCardAdapter = FlashCardAdapter(requireContext(), flashcards)
+            flashCardAdapter = FlashCardAdapter(requireContext(), flashcards, onDeleteClickListener)
             recyclerView.adapter = flashCardAdapter
         }
+
+
+
+        val questionEditText = binding.questionEditText
+        val answerEditText = binding.answerEditText
+
+        // Listen for changes in the question EditText field
+        questionEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                viewModel.setQuestion(s.toString()) // Update ViewModel with the entered question
+            }
+        })
+
+        // Listen for changes in the answer EditText field
+        answerEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                viewModel.setAnswer(s.toString()) // Update ViewModel with the entered answer
+            }
+        })
+
+
+        val saveQuestionButton = binding.saveButton
+
+        saveQuestionButton.setOnClickListener {
+            // Retrieve the question and answer from the ViewModel
+            val question = viewModel.getQuestion()
+            val answer = viewModel.getAnswer()
+
+            if(question != null && answer != null){
+                // Create a new FlashCardEntity object with the entered question and answer
+                val flashCardEntity = FlashCardEntity(cardSetId = 0, question = question, answer = answer)
+
+                // Add the new FlashCardEntity to the ViewModel
+                viewModel.addFlashCard(flashCardEntity)
+
+                // Clear the EditText fields after saving
+                questionEditText.text?.clear()
+                answerEditText.text?.clear()
+
+            }
+
+
+        }
+
     }
 
     private fun showDatePickerDialog() {
