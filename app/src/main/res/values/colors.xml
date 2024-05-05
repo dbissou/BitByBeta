@@ -2,12 +2,10 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-<<<<<<< HEAD
+
     <color name="correct_answer_background">#7fd79c</color>
     <color name="tick_mark_color">#FF4081</color> <!-- Adjust color as needed -->
 
-=======
     <color name="beige">#FFD0D0D0</color>
-    <color name="correct_answer_background">#808080</color>
->>>>>>> 09dde57fb6763bae6e9a423a379559cb15738f59
+
 </resources>

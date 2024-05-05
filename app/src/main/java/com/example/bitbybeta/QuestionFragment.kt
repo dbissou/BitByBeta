@@ -36,14 +36,14 @@ class QuestionFragment : Fragment() {
         sharedViewModel = ViewModelProvider(requireActivity()).get(CardSetViewModel::class.java)
 
         //set up aux array
-        questionAux = IntArray(sharedViewModel.getTotalQuestionCount())
+        questionAux = IntArray(sharedViewModel.getStudyQuestionCount())
         for( i in questionAux.indices){
             questionAux[i] = i
         }
         questionAux.shuffle()
 
         //initialize question and answer
-        val q = sharedViewModel.getQuestion(questionAux[0])
+        val q = sharedViewModel.getFlashCard(questionAux[0])
         question = q?.question ?:"error: question text not found"
         answer = q?.answer ?:"error: answer text not found"
         binding.cardButton.text = question
@@ -63,7 +63,7 @@ class QuestionFragment : Fragment() {
                     findNavController().navigate(R.id.CardSetFormFragment)
                 } else {
                     //go to next question otherwise
-                    val nextQuest = sharedViewModel.getQuestion(questionAux[qNum])
+                    val nextQuest = sharedViewModel.getFlashCard(questionAux[qNum])
                     question = nextQuest?.question ?:"error: question text not found"
                     answer = nextQuest?.answer ?:"error: answer text not found"
                     binding.cardButton.text = question
